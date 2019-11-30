@@ -1,0 +1,14 @@
+set V;
+set E within (V cross V); 
+param N;
+
+var w{1..N} binary;
+var x{V,1..N} binary;
+
+minimize Colors: sum{i in 1..N} w[i]; 
+
+subject to Assigned {i in V}:
+sum{j in 1..N}x[i,j]=1;
+
+subject to Edges {(i,j) in E, k in 1..N}:
+x[i,k] + x[j,k] <= w[k];
