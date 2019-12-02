@@ -5,10 +5,13 @@ param N;
 var w{1..N} binary;
 var x{V,1..N} binary;
 
+#objective function that yields the chromatic number of a graph
 minimize Colors: sum{i in 1..N} w[i]; 
 
+#Ensures each vertex is assigned a color
 subject to Assigned {i in V}:
 sum{j in 1..N}x[i,j]=1;
 
+#Ensures no two adjacent vertices are assigned the same color
 subject to Edges {(i,j) in E, k in 1..N}:
 x[i,k] + x[j,k] <= w[k];
